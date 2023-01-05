@@ -57,9 +57,9 @@ with open(csvpath) as csvfile:
         f"--------------------------\n"
         f"Total Votes:  {total_votes}\n"
         f"---------------------------\n"
-        f"Charles Casper Stockham:  {candidate1_percentage_votes:2f}%,{candidate1_votes}\n"
-        f"Dianan DeGette:  {candidate2_percentage_votes:2f}%,{candidate2_votes}\n"
-        f"Raymon Anthony Doane:  {candidate3_percentage_votes:2f}%,{candidate3_votes}\n"
+        f"Charles Casper Stockham:  {candidate1_percentage_votes:.3f}%, ({candidate1_votes})\n"
+        f"Dianan DeGette:  {candidate2_percentage_votes:.3f}%, ({candidate2_votes})\n"
+        f"Raymon Anthony Doane:  {candidate3_percentage_votes:.3f}%, ({candidate3_votes})\n"
         f"-------------------------------\n"
         f"Winner: {winner}"
        )
@@ -68,7 +68,6 @@ with open(csvpath) as csvfile:
 print(output)
 
 #export the result to text file
-file = 'Results.txt'
-with open(file,"w") as txt_file:
-    formatTxt = ()
+output_file = os.path.join('analysis','analysis.txt')
+with open(output_file,"w") as txt_file:
     txt_file.write(output)
