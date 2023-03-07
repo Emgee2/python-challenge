@@ -14,28 +14,17 @@ with open(csvpath) as csvfile:
 
     #variables
     count = 0
-    candidate1_percentage_votes = 0
-    candidate2_percentage_votes = 0
-    candidate3_percentage_votes = 0
     candidate1_votes = 0
     candidate2_votes = 0
     candidate3_votes = 0
-
-    total_votes = 0
-    max_votes = 0
-    candidate = ""
-    winner = ""
-
     #candidates list
     candidate_list = {"Charles Casper Stockham":0,"Diana DeGette":0,"Raymon Anthony Doane":0}
 
     # loop through the rows in the csv file
     for row in reader:
-        total_votes = sum(candidate_list.values())
-        if count == 0:
-            count += 1
-            continue
         candidate_list.update({row[2]:candidate_list.get(row[2])+1})
+
+    total_votes = sum(candidate_list.values())
 
     #average of votes each candidate
     candidate1_percentage_votes = candidate_list.get('Charles Casper Stockham')*100/total_votes
@@ -47,10 +36,13 @@ with open(csvpath) as csvfile:
     candidate2_votes = candidate_list.get('Diana DeGette')
     candidate3_votes = candidate_list.get('Raymon Anthony Doane')
 
-    for key, val in candidate_list.items(): #decide the winner
-        if val > max_votes:
-            max_votes = val
+    # decide the winner
+    max_votes = max(candidate_list.values())
+    for key, val in candidate_list.items():
+        if val == max_votes:
             winner = key
+            break
+
     #generate output summary
     output = (
         f"Election Results\n"
@@ -58,12 +50,11 @@ with open(csvpath) as csvfile:
         f"Total Votes:  {total_votes}\n"
         f"---------------------------\n"
         f"Charles Casper Stockham:  {candidate1_percentage_votes:.3f}%, ({candidate1_votes})\n"
-        f"Dianan DeGette:  {candidate2_percentage_votes:.3f}%, ({candidate2_votes})\n"
+        f"Diana DeGette:  {candidate2_percentage_votes:.3f}%, ({candidate2_votes})\n"
         f"Raymon Anthony Doane:  {candidate3_percentage_votes:.3f}%, ({candidate3_votes})\n"
         f"-------------------------------\n"
         f"Winner: {winner}"
        )
-
 #print the output(to terminal)
 print(output)
 
@@ -71,3 +62,5 @@ print(output)
 output_file = os.path.join('analysis','analysis.txt')
 with open(output_file,"w") as txt_file:
     txt_file.write(output)
+
+   
